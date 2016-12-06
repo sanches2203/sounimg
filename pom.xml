@@ -21,6 +21,13 @@
     </organization>
 
     <dependencies>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+
         <!-- Logging  -->
         <dependency>
             <groupId>org.slf4j</groupId>

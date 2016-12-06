@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.university.sounimg.viev.MainController">
+    <tabs>
+        <Tab text="Encrypt">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="btnOpenEncrypt" layoutX="454.0" layoutY="-2.0" mnemonicParsing="false" onAction="#clickOpenEncrypt" prefHeight="37.0" prefWidth="146.0" text="Відкрити" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                            <font>
+                                <Font name="Arial Black" size="12.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnEncrypt" disable="true" layoutX="455.0" layoutY="160.0" mnemonicParsing="false" onAction="#clickEncrypt" prefHeight="37.0" prefWidth="146.0" text="Зашифрувати" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                            <font>
+                                <Font name="Arial Black" size="12.0" />
+                            </font>
+                        </Button>
+                        <ImageView fx:id="imgViewEncrypt" fitHeight="349.0" fitWidth="430.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
+                        <Separator layoutX="450.0" orientation="VERTICAL" prefHeight="372.0" prefWidth="12.0" />
+                        <TextField fx:id="tfdEncryptXo" disable="true" layoutX="454.0" layoutY="35.0" prefHeight="25.0" prefWidth="146.0" promptText="Xo [-20 ; 20]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <TextField fx:id="tfdEncryptYo" disable="true" layoutX="468.0" layoutY="60.0" prefHeight="25.0" prefWidth="146.0" promptText="Yo [-20 ; 20]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <TextField fx:id="tfdEncryptZo" disable="true" layoutX="468.0" layoutY="85.0" prefHeight="25.0" prefWidth="146.0" promptText="Zo [-20 ; 20]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <TextField fx:id="tfdEncryptA" disable="true" layoutX="468.0" layoutY="110.0" prefHeight="25.0" prefWidth="146.0" promptText="A [-0.6 ; 0.6]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <TextField fx:id="tfdEncryptB" disable="true" layoutX="468.0" layoutY="135.0" prefHeight="25.0" prefWidth="146.0" promptText="B [0.8 ; 2.5]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <ProgressIndicator fx:id="prgIndicatorEncrypt" layoutX="513.0" layoutY="260.0" progress="0.0" />
+                        <Button fx:id="btnSaveEncrypt" disable="true" layoutX="454.0" layoutY="194.0" mnemonicParsing="false" onAction="#clickSaveEncrypt" prefHeight="37.0" prefWidth="146.0" text="Зберегти" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                            <font>
+                                <Font name="Arial Black" size="12.0" />
+                            </font>
+                        </Button>
+                  <ProgressBar fx:id="prgBarEncrypt" layoutX="465.0" layoutY="343.0" prefHeight="15.0" prefWidth="123.0" progress="0.0" />
+                  <Label fx:id="lblInfoEncrypt" layoutX="465.0" layoutY="315.0" prefHeight="20.0" prefWidth="125.0" textFill="#a1a1a1" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Decrypt">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="btnOpenDecrypt" layoutX="454.0" layoutY="-2.0" mnemonicParsing="false" onAction="#clickOpenDecrypt" prefHeight="37.0" prefWidth="146.0" text="Відкрити" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                            <font>
+                                <Font name="Arial Black" size="12.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnDecrypt" disable="true" layoutX="455.0" layoutY="160.0" mnemonicParsing="false" onAction="#clickDecrypt" prefHeight="37.0" prefWidth="146.0" text="Розшифрувати" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                            <font>
+                                <Font name="Arial Black" size="12.0" />
+                            </font>
+                        </Button>
+                        <ImageView fx:id="imgViewDecrypt" fitHeight="349.0" fitWidth="430.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
+                        <Separator layoutX="450.0" orientation="VERTICAL" prefHeight="378.0" prefWidth="12.0" />
+                        <TextField fx:id="tfdDecryptXo" disable="true" layoutX="454.0" layoutY="35.0" prefHeight="25.0" prefWidth="146.0" promptText="Xo [-20 ; 20]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <TextField fx:id="tfdDecryptYo" disable="true" layoutX="468.0" layoutY="60.0" prefHeight="25.0" prefWidth="146.0" promptText="Yo [-20 ; 20]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <TextField fx:id="tfdDecryptZo" disable="true" layoutX="468.0" layoutY="85.0" prefHeight="25.0" prefWidth="146.0" promptText="Zo [-20 ; 20]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <TextField fx:id="tfdDecryptA" disable="true" layoutX="468.0" layoutY="110.0" prefHeight="25.0" prefWidth="146.0" promptText="A [-0.6 ; 0.6]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <TextField fx:id="tfdDecryptB" disable="true" layoutX="468.0" layoutY="135.0" prefHeight="25.0" prefWidth="146.0" promptText="B [0.8 ; 2.5]" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></TextField>
+                        <ProgressIndicator fx:id="prgIndicatorDecrypt" layoutX="513.0" layoutY="260.0" progress="0.0" />
+                        <Button fx:id="btnSaveDecrypt" disable="true" layoutX="454.0" layoutY="194.0" mnemonicParsing="false" onAction="#clickSaveDecrypt" prefHeight="37.0" prefWidth="146.0" text="Зберегти" AnchorPane.leftAnchor="454.0" AnchorPane.rightAnchor="0.0">
+                            <font>
+                                <Font name="Arial Black" size="12.0" />
+                            </font>
+                        </Button>
+                  <ProgressBar fx:id="prgBarDecrypt" layoutX="465.0" layoutY="343.0" prefHeight="15.0" prefWidth="123.0" progress="0.0" />
+                  <Label fx:id="lblInfoDecrypt" layoutX="465.0" layoutY="315.0" prefHeight="20.0" prefWidth="125.0" textFill="#a1a1a1" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

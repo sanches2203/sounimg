@@ -1,11 +1,12 @@
 package com.university.sounimg.application;
 
-import com.university.sounimg.util.ApplicationConstats;
+import com.university.sounimg.util.ApplicationConstants;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -16,9 +17,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         log.debug("Starting application...");
-        Parent root = FXMLLoader.load(getClass().getResource(ApplicationConstats.PATH_MAIN_FXML));
+        Parent root = FXMLLoader.load(getClass().getResource(ApplicationConstants.MAIN_FORM_LOCATION));
         Scene scene = new Scene(root);
         stage.setTitle("Sound-Image-Encrypt");
+        //stage.getIcons().add(new Image("/resources/img/gallery_icon1.png"));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setOnCloseRequest(e -> {
