@@ -1,6 +1,6 @@
-package com.university.master.application;
+package com.university.sounimg.application;
 
-import com.university.master.util.AppConst;
+import com.university.sounimg.util.ApplicationConstats;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +13,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource(AppConst.PATH_MAIN_FXML));
+        Parent root = FXMLLoader.load(getClass().getResource(ApplicationConstats.PATH_MAIN_FXML));
         Scene scene = new Scene(root);
-        stage.setTitle("Sound-Image-Crypter");
+        stage.setTitle("Sound-Image-Encrypt");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setOnCloseRequest(e -> {
