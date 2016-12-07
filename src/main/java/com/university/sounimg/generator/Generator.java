@@ -4,7 +4,7 @@ import com.university.sounimg.util.ApplicationConstants;
 
 import java.util.Random;
 
-public class Generator {
+class Generator {
 
     private int[] arrayRedXor;
     private int[] arrayGreenXor;
@@ -15,35 +15,36 @@ public class Generator {
     private int keyZ;
     private int keyCube;
 
-    public int getKeyX() {
+    int getKeyX() {
         return keyX;
     }
 
-    public int getKeyY() {
+    int getKeyY() {
         return keyY;
     }
 
-    public int getKeyZ() {
+    int getKeyZ() {
         return keyZ;
     }
 
-    public int getKeyCube() {
+    int getKeyCube() {
         return keyCube;
     }
 
-    public int[] getArrayRedXor() {
+    int[] getArrayRedXor() {
         return arrayRedXor;
     }
 
-    public int[] getArrayGreenXor() {
+    int[] getArrayGreenXor() {
         return arrayGreenXor;
     }
 
-    public int[] getArrayBlueXor() {
+    int[] getArrayBlueXor() {
         return arrayBlueXor;
     }
 
-    public void generateRossler(int quantityPixels, double x, double y, double z, double alpha, double beta) {
+
+    void generateRossler(int quantityPixels, double x, double y, double z, double alpha, double beta) {
         double tempX = 0; double tempY = 0; double tempZ = 0; double var;
         double[] arrayRosslerX = new double[quantityPixels];
         double[] arrayRosslerY = new double[quantityPixels];
@@ -83,7 +84,7 @@ public class Generator {
         keyZ = keyZ ^ keyCube;
     }
 
-    public void preProccesor(int quantityPixels, int x, int y, int z) {
+    void preProccesor(int quantityPixels, int x, int y, int z) {
         arrayRedXor = new int[quantityPixels];
         arrayGreenXor = new int[quantityPixels];
         arrayBlueXor = new int[quantityPixels];
