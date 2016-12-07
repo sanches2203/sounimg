@@ -20,7 +20,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource(ApplicationConstants.MAIN_FORM_LOCATION));
         Scene scene = new Scene(root);
         stage.setTitle("Sound-Image-Encrypt");
-        //stage.getIcons().add(new Image("/resources/img/gallery_icon1.png"));
+        stage.getIcons().add(new Image(ApplicationConstants.APPLICATION_ICON_PATH));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setOnCloseRequest(e -> {

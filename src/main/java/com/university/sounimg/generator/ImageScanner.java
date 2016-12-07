@@ -36,7 +36,7 @@ public class ImageScanner extends Task<Image> {
         this.isEncrypt = isEncrypt;
     }
 
-    public void scanImage() {
+    private void scanImage() {
         try {
             img = ImageIO.read(file);
             generator = new Generator();
@@ -183,7 +183,6 @@ public class ImageScanner extends Task<Image> {
     }
 
     private int indexOfArray(int[] array1, int index) {
-
         return array1[index];
     }
 

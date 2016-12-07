@@ -1,4 +1,4 @@
-package com.university.sounimg.viev;
+package com.university.sounimg.controller;
 
 import com.university.sounimg.generator.ImageScanner;
 import com.university.sounimg.security.Keys;

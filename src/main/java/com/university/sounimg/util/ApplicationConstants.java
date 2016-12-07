@@ -10,6 +10,7 @@ public final class ApplicationConstants {
     public static final String PATTERN_NUMB = "[+-]?\\d*\\.?\\d+";
 
     public final static String MAIN_FORM_LOCATION = "/fxml/MainForm.fxml";
+    public final static String APPLICATION_ICON_PATH  = "/img/gallery_icon1.png";
 
     public static final double P = 0.2;
     public static final double Q = 0.1;

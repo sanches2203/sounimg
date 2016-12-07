@@ -20,6 +20,14 @@
         <name>O.U.Kuper</name>
     </organization>
 
+    <repositories>
+        <repository>
+            <id>media</id>
+            <name>media</name>
+            <url>http://maven.geotoolkit.org/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <dependency>
