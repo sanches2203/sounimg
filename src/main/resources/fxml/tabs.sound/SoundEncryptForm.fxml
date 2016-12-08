@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="com.university.sounimg.controller.tabs.audio.AudioControllerEncrypt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="btnOpen" layoutX="450.0" mnemonicParsing="false" onAction="#clickOpen" prefHeight="40.0" prefWidth="150.0" text="Відкрити">
          <font>
@@ -23,7 +22,7 @@
             <Font name="Arial Black" size="12.0" />
          </font>
       </Button>
-      <ImageView fx:id="imgViewEncrypt" fitHeight="345.0" fitWidth="439.0" layoutX="5.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgView" fitHeight="345.0" fitWidth="439.0" layoutX="5.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
       <Separator layoutX="444.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="360.0" prefWidth="12.0" />
       <TextField fx:id="tfdXo" disable="true" layoutX="450.0" layoutY="40.0" prefHeight="25.0" prefWidth="150.0" promptText="Xo [-20 ; 20]">
          <font>
@@ -50,13 +49,13 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </TextField>
-      <ProgressIndicator fx:id="progressIndicator" layoutX="508.0" layoutY="270.0" progress="0.0" />
+      <ProgressIndicator fx:id="prgIndicator" layoutX="508.0" layoutY="270.0" progress="0.0" />
       <Button fx:id="btnSave" disable="true" layoutX="450.0" layoutY="205.0" mnemonicParsing="false" onAction="#clickSave" prefHeight="40.0" prefWidth="150.0" text="Зберегти">
          <font>
             <Font name="Arial Black" size="12.0" />
          </font>
       </Button>
-      <ProgressBar fx:id="progressBarIndicator" layoutX="464.0" layoutY="336.0" prefHeight="15.0" prefWidth="123.0" progress="0.0" />
-      <Label fx:id="lblInfoEncrypt" layoutX="463.0" layoutY="316.0" prefHeight="20.0" prefWidth="125.0" textFill="#a1a1a1" />
+      <ProgressBar fx:id="prgBarIndicator" layoutX="464.0" layoutY="336.0" prefHeight="15.0" prefWidth="123.0" progress="0.0" />
+      <Label fx:id="lblInfo" layoutX="463.0" layoutY="316.0" prefHeight="20.0" prefWidth="125.0" textFill="#a1a1a1" />
    </children>
 </AnchorPane>

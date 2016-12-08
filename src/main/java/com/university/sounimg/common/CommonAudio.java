@@ -4,18 +4,20 @@ import com.university.sounimg.generator.Generator;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class ImageScanner extends Task<Image> {
+public class CommonAudio extends Task<Image> {
     private Color imageColor;
     private Generator generator;
     private BufferedImage img;
@@ -26,8 +28,9 @@ public class ImageScanner extends Task<Image> {
     private double alpha;
     private double beta;
     private boolean isEncrypt;
+    private String bmpFileName;
 
-    public ImageScanner(File file, double x, double y, double z, double alpha, double beta, boolean isEncrypt) {
+    public CommonAudio(File file, double x, double y, double z, double alpha, double beta, boolean isEncrypt) {
         this.file = file;
         this.x = x;
         this.y = y;
@@ -86,6 +89,10 @@ public class ImageScanner extends Task<Image> {
                 img.setRGB(i, j, matrix[i][j]);
             }
         }
+
+        convertAndSavePngToBmp();
+        Task<File> imageConverter = new ImageToAudioConverter();
+        new Thread(imageConverter).start();
     }
 
     private void decryptImage() {
@@ -176,7 +183,7 @@ public class ImageScanner extends Task<Image> {
             for (int j = 0; j <= matrix[i].length - 1; j++) {
                 matrix[i][j] = map.get(searchIndex(array2, m));
                 m++;
-                updateProgress(m, size+1);
+                updateProgress(m, size + 1);
             }
         }
     }
@@ -200,6 +207,27 @@ public class ImageScanner extends Task<Image> {
 
         }
         return -1;
+    }
+
+    private void convertAndSavePngToBmp() {
+        try {
+            BufferedImage newImage = new BufferedImage(
+                    img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+            Graphics2D g = newImage.createGraphics();
+            g.drawImage(img, 0, 0, null);
+            g.dispose();
+            //bmpFileName = FilenameUtils.getFullPath(file.getAbsolutePath()).concat(FilenameUtils.getBaseName(file.getName()).concat(".").concat(".bmp"));
+            ImageIO.write(newImage, "BMP", new File("D:\\temp\\temp.bmp"));
+            //FileUtils.forceDelete(new File(FilenameUtils.getFullPath(bmpFileName)
+                    //.concat(FilenameUtils.getBaseName(bmpFileName)).concat(".png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void convertImageToAudio() {
+
     }
 
     @Override
