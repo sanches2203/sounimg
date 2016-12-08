@@ -9,7 +9,7 @@ import java.io.OutputStream;
 
 public class New {
 
-    public static void main(String[] args) throws Exception {
+    public void main() throws Exception {
 //        ProcessBuilder builder = new ProcessBuilder(
 //                "cmd.exe", "/c", "cd \"C:\\Users\\sanch\\Desktop\\arss-0.2.3-windows\"" +
 //                " && arss -q D:\\Record.wav D:\\Record.png -b 12 --min-freq 55 -max 16000 --pps 100 -f 16");

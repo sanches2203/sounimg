@@ -1,6 +1,6 @@
 package com.university.sounimg.controller;
 
-import com.university.sounimg.generator.ImageScanner;
+import com.university.sounimg.common.ImageScanner;
 import com.university.sounimg.security.Keys;
 import com.university.sounimg.util.ApplicationConstants;
 import javafx.concurrent.Task;

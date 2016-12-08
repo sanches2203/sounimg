@@ -1,5 +1,6 @@
-package com.university.sounimg.generator;
+package com.university.sounimg.common;
 
+import com.university.sounimg.generator.Generator;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -45,20 +46,23 @@ public class ImageScanner extends Task<Image> {
 
             if (isEncrypt) {
                 encryptImage();
-            }
-            if (!isEncrypt) {
+            } else {
                 decryptImage();
             }
 
             String fileExtension = FilenameUtils.getExtension(file.getName());
+
             if (fileExtension.contains("jpeg") || fileExtension.contains("jpg")) {
                 fileExtension = "png";
             }
+
             ImageIO.write(img, fileExtension, new File(FilenameUtils.getBaseName(file.getName()) + "." + fileExtension));
         } catch (Exception e) {
             System.out.println("Incorrect File " + e.getMessage());
         }
+
         updateProgress(img.getWidth() * img.getHeight(), img.getWidth() * img.getHeight());
+
         System.out.println("Finished");
 
     }
@@ -74,7 +78,9 @@ public class ImageScanner extends Task<Image> {
                 matrix[i][j] = getIntFromColor(r, g, b);
             }
         }
+
         encryptMatrix(matrix, img.getWidth() * img.getHeight(), generator.getKeyX() ^ generator.getKeyY() ^ generator.getKeyZ() ^ generator.getKeyCube());
+
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 img.setRGB(i, j, matrix[i][j]);
@@ -83,12 +89,14 @@ public class ImageScanner extends Task<Image> {
     }
 
     private void decryptImage() {
+
         int[][] matrix = new int[img.getWidth()][img.getHeight()];
         for (int i = 0; i < img.getWidth(); i++) {
             for (int j = 0; j < img.getHeight(); j++) {
                 matrix[i][j] = img.getRGB(i, j);
             }
         }
+
         decryptMatrix(matrix, img.getWidth() * img.getHeight(), generator.getKeyX() ^ generator.getKeyY() ^ generator.getKeyZ() ^ generator.getKeyCube());
 
         for (int i = 0; i < img.getWidth(); i++) {
@@ -105,9 +113,7 @@ public class ImageScanner extends Task<Image> {
     private void shuffle(int[] array, Random random) {
         int n = array.length;
         for (int i = 0; i < array.length; i++) {
-            // Get a random index of the array past i.
             int rand = random.nextInt(n);
-            // Swap the random element with the present element.
             int randomElement = array[rand];
             array[rand] = array[i];
             array[i] = randomElement;
@@ -116,15 +122,15 @@ public class ImageScanner extends Task<Image> {
 
     private void encryptMatrix(int[][] matrix, int size, int key) {
         int k = 0;
-        int[] array1 = new int[size];
+        int[] matrixMap = new int[size];
 
         Random random = new Random(key);
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < array1.length; i++) {
-            array1[i] = i;
+        for (int i = 0; i < matrixMap.length; i++) {
+            matrixMap[i] = i;
         }
 
-        shuffle(array1, random);
+        shuffle(matrixMap, random);
 
         for (int[] aMatrix : matrix) {
             for (int anAMatrix : aMatrix) {
@@ -136,7 +142,7 @@ public class ImageScanner extends Task<Image> {
         updateMessage("Encrypting image...");
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                matrix[i][j] = map.get(indexOfArray(array1, k));
+                matrix[i][j] = map.get(indexOfArray(matrixMap, k));
                 k++;
                 updateProgress(k, size + 1);
             }
@@ -147,13 +153,13 @@ public class ImageScanner extends Task<Image> {
         Map<Integer, Integer> map = new HashMap<>();
         Random random = new Random(key);
         int m = 0;
-        int[] array1 = new int[size];
+        int[] matrixMap = new int[size];
 
-        for (int i = 0; i < array1.length; i++) {
-            array1[i] = i;
+        for (int i = 0; i < matrixMap.length; i++) {
+            matrixMap[i] = i;
         }
 
-        int[] array2 = Arrays.copyOf(array1, array1.length);
+        int[] array2 = Arrays.copyOf(matrixMap, matrixMap.length);
 
         shuffle(array2, random);
 
