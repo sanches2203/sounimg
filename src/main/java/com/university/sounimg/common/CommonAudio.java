@@ -219,10 +219,7 @@ public class CommonAudio extends Task<Image> {
             Graphics2D g = newImage.createGraphics();
             g.drawImage(img, 0, 0, null);
             g.dispose();
-            //bmpFileName = FilenameUtils.getFullPath(file.getAbsolutePath()).concat(FilenameUtils.getBaseName(file.getName()).concat(".").concat(".bmp"));
             ImageIO.write(newImage, "BMP", new File("D:\\temp\\temp.bmp"));
-            //FileUtils.forceDelete(new File(FilenameUtils.getFullPath(bmpFileName)
-            //.concat(FilenameUtils.getBaseName(bmpFileName)).concat(".png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

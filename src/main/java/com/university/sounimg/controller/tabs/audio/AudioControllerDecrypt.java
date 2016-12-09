@@ -29,17 +29,31 @@ public class AudioControllerDecrypt implements Initializable {
 
     @FXML
     private Label lblInfo;
-    @FXML private ProgressBar prgBarIndicator;
-    @FXML private ProgressIndicator prgIndicator;
-    @FXML private TextField tfdXo;
-    @FXML private TextField tfdYo;
-    @FXML private TextField tfdZo;
-    @FXML private TextField tfdA;
-    @FXML private TextField tfdB;
-    @FXML private ImageView imgView;
-    @FXML private Button btnOpen;
-    @FXML private Button btnDecrypt;
-    @FXML private Button btnSave;
+    @FXML
+    private ProgressBar prgBarIndicator;
+    @FXML
+    private ProgressIndicator prgIndicator;
+    @FXML
+    private TextField tfdXo;
+    @FXML
+    private TextField tfdYo;
+    @FXML
+    private TextField tfdZo;
+    @FXML
+    private TextField tfdA;
+    @FXML
+    private TextField tfdB;
+    @FXML
+    private ImageView imgView;
+    @FXML
+    private Button btnOpen;
+    @FXML
+    private Button btnDecrypt;
+    @FXML
+    private Button btnSave;
+
+    private File selectedFile;
+    private double x, y, z, a, b;
 
     private FileChooser openFileChooser, saveFileChooser;
 
@@ -58,7 +72,7 @@ public class AudioControllerDecrypt implements Initializable {
 
     public void clickOpen() {
         cleanupTempFiles();
-        File selectedFile = openFileChooser.showOpenDialog(btnDecrypt.getParent().getScene().getWindow());
+        selectedFile = openFileChooser.showOpenDialog(btnDecrypt.getParent().getScene().getWindow());
         FileInputStream fileInputStream;
         if (selectedFile != null) {
             Task<Image> audioConverter = new ConverterAudioToImage(selectedFile.getPath());
@@ -93,7 +107,7 @@ public class AudioControllerDecrypt implements Initializable {
                 tfdB.setText(String.valueOf(keys.getKeyB()));
                 btnDecrypt.setDisable(false);
             } catch (Exception e) {
-                ApplicationConstants.showAlertErrorDialog("Файл з ключами не знайдено, або його пошкоджено.", "Введіть ключі самостійно." );
+                ApplicationConstants.showAlertErrorDialog("Файл з ключами не знайдено, або його пошкоджено.", "Введіть ключі самостійно.");
                 disableTextFields();
                 btnDecrypt.setDisable(false);
             }
@@ -107,14 +121,27 @@ public class AudioControllerDecrypt implements Initializable {
                 !isValueOfRange(tfdA.getText(), -0.6, 0.6) || !isValueOfRange(tfdB.getText(), 0.8, 2.5) ||
                 !isValueOfRange(tfdXo.getText(), -20, 20) || !isValueOfRange(tfdYo.getText(), -20, 20) ||
                 !isValueOfRange(tfdZo.getText(), -20, 20)) {
-            ApplicationConstants.showAlertErrorDialog("Введено невірні дані.", "Будь ласка перевірте їх, там спробуйте ще раз." );
+            ApplicationConstants.showAlertErrorDialog("Введено невірні дані.", "Будь ласка перевірте їх, там спробуйте ще раз.");
         } else {
-            double x = Double.parseDouble(tfdXo.getText());
-            double y = Double.parseDouble(tfdYo.getText());
-            double z = Double.parseDouble(tfdZo.getText());
-            double a = Double.parseDouble(tfdA.getText());
-            double b = Double.parseDouble(tfdB.getText());
-            Task<Image> imageScanner = new CommonAudio(new File("D:\\temp\\temp.png"), x, y, z, a, b, false);
+            x = Double.parseDouble(tfdXo.getText());
+            y = Double.parseDouble(tfdYo.getText());
+            z = Double.parseDouble(tfdZo.getText());
+            a = Double.parseDouble(tfdA.getText());
+            b = Double.parseDouble(tfdB.getText());
+            String file_test = FilenameUtils.getBaseName(selectedFile.getName()) + "_" +
+                    imgView.getImage().getHeight() + "_" + imgView.getImage().getWidth() +
+                    x + y + z + a + b;
+            file_test = file_test.replaceAll("\\.", "_").concat(".png");
+            Task<Image> imageScanner;
+
+            if (new File("D:\\temp\\" + file_test).exists()) {
+                imageScanner = new CommonAudio(new File("D:\\temp\\" + file_test), x, y, z, a, b, false);
+                System.out.println("good");
+            } else {
+                imageScanner = new CommonAudio(new File("D:\\temp\\temp.png"), x, y, z, a, b, false);
+                System.out.printf("bad");
+            }
+
             prgIndicator.progressProperty().bind(imageScanner.progressProperty());
             prgBarIndicator.progressProperty().bind(imageScanner.progressProperty());
             lblInfo.textProperty().bind(imageScanner.messageProperty());
@@ -166,12 +193,15 @@ public class AudioControllerDecrypt implements Initializable {
     private void cleanupTempFiles() {
         try {
             FileUtils.forceDelete(new File("D:\\temp\\temp.png"));
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         try {
             FileUtils.forceDelete(new File("D:\\temp\\temp.bmp"));
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         try {
             FileUtils.forceDelete(new File("D:\\temp\\temp.wav"));
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 }

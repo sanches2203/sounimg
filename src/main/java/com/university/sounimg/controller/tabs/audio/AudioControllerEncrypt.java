@@ -5,6 +5,7 @@ import com.university.sounimg.common.CommonAudio;
 import com.university.sounimg.security.Keys;
 import com.university.sounimg.util.ApplicationConstants;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -14,6 +15,7 @@ import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import javax.imageio.ImageIO;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,6 +50,8 @@ public class AudioControllerEncrypt implements Initializable {
     private Button btnSave;
 
     private FileChooser openFileChooser, saveFileChooser;
+
+    double x, y, z, a, b;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,11 +97,11 @@ public class AudioControllerEncrypt implements Initializable {
                 !isValueOfRange(tfdZo.getText(), -20, 20)) {
             ApplicationConstants.showAlertErrorDialog("Введено невірні дані.", "Будь ласка перевірте їх, там спробуйте ще раз.");
         } else {
-            double x = Double.parseDouble(tfdXo.getText());
-            double y = Double.parseDouble(tfdYo.getText());
-            double z = Double.parseDouble(tfdZo.getText());
-            double a = Double.parseDouble(tfdA.getText());
-            double b = Double.parseDouble(tfdB.getText());
+            x = Double.parseDouble(tfdXo.getText());
+            y = Double.parseDouble(tfdYo.getText());
+            z = Double.parseDouble(tfdZo.getText());
+            a = Double.parseDouble(tfdA.getText());
+            b = Double.parseDouble(tfdB.getText());
             Task<Image> imageScanner = new CommonAudio(new File("D:\\temp\\temp.png"), x, y, z, a, b, true);
 
             prgIndicator.progressProperty().bind(imageScanner.progressProperty());
@@ -124,7 +128,14 @@ public class AudioControllerEncrypt implements Initializable {
         File file = saveFileChooser.showSaveDialog(btnEncrypt.getParent().getScene().getWindow());
         if (file != null) {
             try {
+                String filename = "D:\\temp\\" + FilenameUtils.getBaseName(file.getName()) + "_" +
+                        imgView.getImage().getHeight() + "_" + imgView.getImage().getWidth() +
+                        x + y + z + a + b;
+                filename = filename.replaceAll("\\.", "_");
                 copyFileUsingFileStreams(new File("D:\\temp\\temp.wav"), file);
+                ImageIO.write(SwingFXUtils.fromFXImage(imgView.getImage(),
+                        null), "png", new File(filename +  ".png"));
+                System.out.printf(filename);
                 Keys keys = new Keys(tfdXo.getText(), tfdYo.getText(), tfdZo.getText(), tfdA.getText(), tfdB.getText());
                 String filePath = FilenameUtils.getFullPath(file.getAbsolutePath());
                 FileOutputStream fileOutputStream = new FileOutputStream(filePath + FilenameUtils.getBaseName(file.getName()) + ".tmp");
