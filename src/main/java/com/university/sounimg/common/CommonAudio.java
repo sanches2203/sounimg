@@ -27,7 +27,6 @@ public class CommonAudio extends Task<Image> {
     private double alpha;
     private double beta;
     private boolean isEncrypt;
-    private String bmpFileName;
 
     public CommonAudio(File file, double x, double y, double z, double alpha, double beta, boolean isEncrypt) {
         this.file = file;
