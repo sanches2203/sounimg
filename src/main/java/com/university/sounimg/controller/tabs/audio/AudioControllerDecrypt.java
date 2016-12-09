@@ -16,10 +16,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -162,17 +159,31 @@ public class AudioControllerDecrypt implements Initializable {
     }
 
     public void clickSave() {
-        saveFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
-                "Image File", ApplicationConstants.IMAGES_EXTENSIONS_SAVE_JPEG));
-        saveFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
-                "Image File", ApplicationConstants.IMAGES_EXTENSIONS_SAVE_JPG));
         File file = saveFileChooser.showSaveDialog(btnDecrypt.getParent().getScene().getWindow());
         if (file != null) {
             try {
-                ImageIO.write(SwingFXUtils.fromFXImage(imgView.getImage(),
-                        null), "png", file);
+                copyFileUsingFileStreams(new File("D:\\temp\\temp.wav"), file);
             } catch (IOException ex) {
                 Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void copyFileUsingFileStreams(File source, File dest) throws IOException {
+        InputStream input = null;
+        OutputStream output = null;
+        try {
+            input = new FileInputStream(source);
+            output = new FileOutputStream(dest);
+            byte[] buf = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = input.read(buf)) > 0) {
+                output.write(buf, 0, bytesRead);
+            }
+        } finally {
+            if (output != null) {
+                input.close();
+                output.close();
             }
         }
     }
