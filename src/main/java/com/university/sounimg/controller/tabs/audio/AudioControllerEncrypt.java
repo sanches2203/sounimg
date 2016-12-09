@@ -2,11 +2,9 @@ package com.university.sounimg.controller.tabs.audio;
 
 import com.university.sounimg.common.AudioToImageConverter;
 import com.university.sounimg.common.CommonAudio;
-import com.university.sounimg.common.CommonImage;
 import com.university.sounimg.security.Keys;
 import com.university.sounimg.util.ApplicationConstants;
 import javafx.concurrent.Task;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -16,7 +14,6 @@ import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.imageio.ImageIO;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,8 +48,6 @@ public class AudioControllerEncrypt implements Initializable {
     private Button btnSave;
 
     private FileChooser openFileChooser, saveFileChooser;
-    private File selectedFile;
-    private File generatedFile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,7 +71,7 @@ public class AudioControllerEncrypt implements Initializable {
     }
 
     public void clickOpen() {
-        selectedFile = openFileChooser.showOpenDialog(btnEncrypt.getParent().getScene().getWindow());
+        File selectedFile = openFileChooser.showOpenDialog(btnEncrypt.getParent().getScene().getWindow());
         if (selectedFile != null) {
             Task<Image> audioConverter = new AudioToImageConverter(selectedFile.getPath());
             imgView.imageProperty().bind(audioConverter.valueProperty());
@@ -136,7 +131,7 @@ public class AudioControllerEncrypt implements Initializable {
         File file = saveFileChooser.showSaveDialog(btnEncrypt.getParent().getScene().getWindow());
         if (file != null) {
             try {
-                copyFileUsingFileStreams(new File("D:\\temp\temp.wav"), file);
+                copyFileUsingFileStreams(new File("D:\\temp\\temp.wav"), file);
                 Keys keys = new Keys(tfdXo.getText(), tfdYo.getText(), tfdZo.getText(), tfdA.getText(), tfdB.getText());
                 String filePath = FilenameUtils.getFullPath(file.getAbsolutePath());
                 FileOutputStream fileOutputStream = new FileOutputStream(filePath + FilenameUtils.getBaseName(file.getName()) + ".tmp");
@@ -155,8 +150,7 @@ public class AudioControllerEncrypt implements Initializable {
         return valueFromString <= max && valueFromString >= min;
     }
 
-    private void copyFileUsingFileStreams(File source, File dest)
-            throws IOException {
+    private void copyFileUsingFileStreams(File source, File dest) throws IOException {
         InputStream input = null;
         OutputStream output = null;
         try {
