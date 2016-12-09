@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -177,7 +176,7 @@ public class CommonImage extends Task<Image> {
             for (int j = 0; j <= matrix[i].length - 1; j++) {
                 matrix[i][j] = map.get(searchIndex(array2, m));
                 m++;
-                updateProgress(m, size+1);
+                updateProgress(m, size + 1);
             }
         }
     }

@@ -1,12 +1,9 @@
 package com.university.sounimg.common;
 
 import com.sun.istack.internal.NotNull;
-import com.university.sounimg.application.Main;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -58,7 +55,7 @@ public class ConverterAudioToImage extends Task<Image> {
     protected Image call() throws Exception {
         updateMessage("Converting audio...");
         convertAudioToImage(inputAudioPath);
-        updateProgress(1,1);
+        updateProgress(1, 1);
         updateMessage("Successful!");
         return SwingFXUtils.toFXImage(image, null);
     }

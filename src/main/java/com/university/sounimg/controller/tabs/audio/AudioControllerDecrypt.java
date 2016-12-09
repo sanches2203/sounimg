@@ -1,7 +1,6 @@
 package com.university.sounimg.controller.tabs.audio;
 
 import com.university.sounimg.common.CommonAudio;
-import com.university.sounimg.common.CommonImage;
 import com.university.sounimg.common.ConverterAudioToImage;
 import com.university.sounimg.security.Keys;
 import com.university.sounimg.util.ApplicationConstants;
@@ -43,7 +42,6 @@ public class AudioControllerDecrypt implements Initializable {
     @FXML private Button btnSave;
 
     private FileChooser openFileChooser, saveFileChooser;
-    private File selectedFile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,7 +58,7 @@ public class AudioControllerDecrypt implements Initializable {
 
     public void clickOpen() {
         cleanupTempFiles();
-        selectedFile = openFileChooser.showOpenDialog(btnDecrypt.getParent().getScene().getWindow());
+        File selectedFile = openFileChooser.showOpenDialog(btnDecrypt.getParent().getScene().getWindow());
         FileInputStream fileInputStream;
         if (selectedFile != null) {
             Task<Image> audioConverter = new ConverterAudioToImage(selectedFile.getPath());

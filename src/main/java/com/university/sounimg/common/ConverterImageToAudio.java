@@ -41,7 +41,6 @@ public class ConverterImageToAudio extends Task<File> {
     @Override
     protected File call() throws Exception {
         updateMessage("Converting audio...");
-        //updateProgress(1,1);
         convertImageToAudio();
         return file;
     }

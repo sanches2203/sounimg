@@ -25,18 +25,30 @@ import java.util.logging.Logger;
 
 public class ImageControllerEncrypt implements Initializable {
 
-    @FXML private Label lblInfo;
-    @FXML private ProgressBar prgBarIndicator;
-    @FXML private ProgressIndicator prgIndicator;
-    @FXML private TextField tfdXo;
-    @FXML private TextField tfdYo;
-    @FXML private TextField tfdZo;
-    @FXML private TextField tfdA;
-    @FXML private TextField tfdB;
-    @FXML private ImageView imgView;
-    @FXML private Button btnOpen;
-    @FXML private Button btnEncrypt;
-    @FXML private Button btnSave;
+    @FXML
+    private Label lblInfo;
+    @FXML
+    private ProgressBar prgBarIndicator;
+    @FXML
+    private ProgressIndicator prgIndicator;
+    @FXML
+    private TextField tfdXo;
+    @FXML
+    private TextField tfdYo;
+    @FXML
+    private TextField tfdZo;
+    @FXML
+    private TextField tfdA;
+    @FXML
+    private TextField tfdB;
+    @FXML
+    private ImageView imgView;
+    @FXML
+    private Button btnOpen;
+    @FXML
+    private Button btnEncrypt;
+    @FXML
+    private Button btnSave;
 
     private FileChooser openFileChooser, saveFileChooser;
     private File selectedFile;
@@ -70,7 +82,7 @@ public class ImageControllerEncrypt implements Initializable {
                 !isValueOfRange(tfdA.getText(), -0.6, 0.6) || !isValueOfRange(tfdB.getText(), 0.8, 2.5) ||
                 !isValueOfRange(tfdXo.getText(), -20, 20) || !isValueOfRange(tfdYo.getText(), -20, 20) ||
                 !isValueOfRange(tfdZo.getText(), -20, 20)) {
-            ApplicationConstants.showAlertErrorDialog("Введено невірні дані.", "Будь ласка перевірте їх, там спробуйте ще раз." );
+            ApplicationConstants.showAlertErrorDialog("Введено невірні дані.", "Будь ласка перевірте їх, там спробуйте ще раз.");
         } else {
             double x = Double.parseDouble(tfdXo.getText());
             double y = Double.parseDouble(tfdYo.getText());
