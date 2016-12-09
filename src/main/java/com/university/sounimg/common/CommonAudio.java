@@ -4,7 +4,6 @@ import com.university.sounimg.generator.Generator;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
@@ -91,7 +90,7 @@ public class CommonAudio extends Task<Image> {
         }
 
         convertAndSavePngToBmp();
-        Task<File> imageConverter = new ImageToAudioConverter();
+        Task<File> imageConverter = new ConverterImageToAudio();
         new Thread(imageConverter).start();
     }
 
@@ -115,6 +114,10 @@ public class CommonAudio extends Task<Image> {
                 img.setRGB(i, j, getIntFromColor(r, g, b));
             }
         }
+
+        convertAndSavePngToBmp();
+        Task<File> imageConverter = new ConverterImageToAudio();
+        new Thread(imageConverter).start();
     }
 
     private void shuffle(int[] array, Random random) {
@@ -226,11 +229,7 @@ public class CommonAudio extends Task<Image> {
         }
     }
 
-    private void convertImageToAudio() {
-
-    }
-
-    @Override
+        @Override
     protected Image call() throws Exception {
         updateMessage("Calculating data of image...");
         Thread.sleep(5000);

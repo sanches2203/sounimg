@@ -1,6 +1,6 @@
 package com.university.sounimg.controller.tabs.audio;
 
-import com.university.sounimg.common.AudioToImageConverter;
+import com.university.sounimg.common.ConverterAudioToImage;
 import com.university.sounimg.common.CommonAudio;
 import com.university.sounimg.security.Keys;
 import com.university.sounimg.util.ApplicationConstants;
@@ -51,15 +51,7 @@ public class AudioControllerEncrypt implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            FileUtils.forceDelete(new File("D:\\temp\\temp.png"));
-        } catch (IOException ignored) {}
-        try {
-            FileUtils.forceDelete(new File("D:\\temp\\temp.bmp"));
-        } catch (IOException ignored) {}
-        try {
-            FileUtils.forceDelete(new File("D:\\temp\\temp.wav"));
-        } catch (IOException ignored) {}
+        cleanupTempFiles();
         openFileChooser = new FileChooser();
         openFileChooser.setTitle("Відкрити аудіо");
         openFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
@@ -71,9 +63,10 @@ public class AudioControllerEncrypt implements Initializable {
     }
 
     public void clickOpen() {
+        cleanupTempFiles();
         File selectedFile = openFileChooser.showOpenDialog(btnEncrypt.getParent().getScene().getWindow());
         if (selectedFile != null) {
-            Task<Image> audioConverter = new AudioToImageConverter(selectedFile.getPath());
+            Task<Image> audioConverter = new ConverterAudioToImage(selectedFile.getPath());
             imgView.imageProperty().bind(audioConverter.valueProperty());
 
             prgIndicator.progressProperty().bind(audioConverter.progressProperty());
@@ -167,5 +160,17 @@ public class AudioControllerEncrypt implements Initializable {
                 output.close();
             }
         }
+    }
+
+    private void cleanupTempFiles() {
+        try {
+            FileUtils.forceDelete(new File("D:\\temp\\temp.png"));
+        } catch (IOException ignored) {}
+        try {
+            FileUtils.forceDelete(new File("D:\\temp\\temp.bmp"));
+        } catch (IOException ignored) {}
+        try {
+            FileUtils.forceDelete(new File("D:\\temp\\temp.wav"));
+        } catch (IOException ignored) {}
     }
 }

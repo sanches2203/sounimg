@@ -16,6 +16,8 @@ public final class ApplicationConstants {
     public final static String MAIN_FORM_LOCATION = "/fxml/MainForm.fxml";
     public final static String APPLICATION_ICON_PATH  = "/img/gallery_icon1.png";
 
+    public final static String APPLICATION_ARRS_PATH = "D:\\temp\\arss\\";
+
     public static final double P = 0.2;
     public static final double Q = 0.1;
     public static final double R = 4.5;

@@ -1,6 +1,8 @@
 package com.university.sounimg.controller.tabs.audio;
 
+import com.university.sounimg.common.CommonAudio;
 import com.university.sounimg.common.CommonImage;
+import com.university.sounimg.common.ConverterAudioToImage;
 import com.university.sounimg.security.Keys;
 import com.university.sounimg.util.ApplicationConstants;
 import javafx.concurrent.Task;
@@ -11,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
@@ -44,22 +47,37 @@ public class AudioControllerDecrypt implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        cleanupTempFiles();
         openFileChooser = new FileChooser();
-        openFileChooser.setTitle("Відкрити зображення");
+        openFileChooser.setTitle("Відкрити аудіо");
         openFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
-                "Image Files", ApplicationConstants.IMAGES_EXTENSIONS));
+                "Audio files", ApplicationConstants.AUDIO_EXTENSIONS));
         saveFileChooser = new FileChooser();
-        saveFileChooser.setTitle("Зберегти зображення");
+        saveFileChooser.setTitle("Зберегти аудіо");
         saveFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
-                "Image File", ApplicationConstants.IMAGES_EXTENSIONS_SAVE_PNG));
+                "Audio File", ApplicationConstants.AUDIO_EXTENSIONS_SAVE_WAV));
     }
 
     public void clickOpen() {
+        cleanupTempFiles();
         selectedFile = openFileChooser.showOpenDialog(btnDecrypt.getParent().getScene().getWindow());
         FileInputStream fileInputStream;
         if (selectedFile != null) {
-            imgView.imageProperty().unbind();
-            imgView.setImage(new Image(selectedFile.toURI().toString()));
+            Task<Image> audioConverter = new ConverterAudioToImage(selectedFile.getPath());
+            imgView.imageProperty().bind(audioConverter.valueProperty());
+
+            prgIndicator.progressProperty().bind(audioConverter.progressProperty());
+            prgBarIndicator.progressProperty().bind(audioConverter.progressProperty());
+            lblInfo.textProperty().bind(audioConverter.messageProperty());
+            tfdXo.disableProperty().bind(audioConverter.runningProperty());
+            tfdYo.disableProperty().bind(audioConverter.runningProperty());
+            tfdZo.disableProperty().bind(audioConverter.runningProperty());
+            tfdA.disableProperty().bind(audioConverter.runningProperty());
+            tfdB.disableProperty().bind(audioConverter.runningProperty());
+
+            btnOpen.disableProperty().bind(audioConverter.runningProperty());
+            btnDecrypt.disableProperty().bind(audioConverter.runningProperty());
+            new Thread(audioConverter).start();
             tfdXo.setText("");
             tfdYo.setText("");
             tfdZo.setText("");
@@ -98,7 +116,7 @@ public class AudioControllerDecrypt implements Initializable {
             double z = Double.parseDouble(tfdZo.getText());
             double a = Double.parseDouble(tfdA.getText());
             double b = Double.parseDouble(tfdB.getText());
-            Task<Image> imageScanner = new CommonImage(selectedFile, x, y, z, a, b, false);
+            Task<Image> imageScanner = new CommonAudio(new File("D:\\temp\\temp.png"), x, y, z, a, b, false);
             prgIndicator.progressProperty().bind(imageScanner.progressProperty());
             prgBarIndicator.progressProperty().bind(imageScanner.progressProperty());
             lblInfo.textProperty().bind(imageScanner.messageProperty());
@@ -145,5 +163,17 @@ public class AudioControllerDecrypt implements Initializable {
     private boolean isValueOfRange(String string, double min, double max) {
         double valueFromString = Double.parseDouble(string);
         return valueFromString <= max && valueFromString >= min;
+    }
+
+    private void cleanupTempFiles() {
+        try {
+            FileUtils.forceDelete(new File("D:\\temp\\temp.png"));
+        } catch (IOException ignored) {}
+        try {
+            FileUtils.forceDelete(new File("D:\\temp\\temp.bmp"));
+        } catch (IOException ignored) {}
+        try {
+            FileUtils.forceDelete(new File("D:\\temp\\temp.wav"));
+        } catch (IOException ignored) {}
     }
 }

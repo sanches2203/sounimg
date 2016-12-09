@@ -22,7 +22,7 @@ public class New {
 
 
 
-        //AudioToImageConverter.convertAndSavePngToBmp("/home/cooper/idea/sounimg/src/main/resources/img/gallery_icon1.png", "bmp.bmp");
+        //ConverterAudioToImage.convertAndSavePngToBmp("/home/cooper/idea/sounimg/src/main/resources/img/gallery_icon1.png", "bmp.bmp");
 
 
     }

@@ -1,21 +1,36 @@
 package com.university.sounimg.common;
 
 import com.sun.istack.internal.NotNull;
+import com.university.sounimg.application.Main;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ImageToAudioConverter extends Task<File> {
+public class ConverterAudioToImage extends Task<Image> {
 
-    private File file;
+    private BufferedImage image;
 
-    private void convertImageToAudio() {
+    @NotNull
+    private String inputAudioPath;
+
+    public ConverterAudioToImage(String inputAudioPath) {
+        this.inputAudioPath = inputAudioPath;
+    }
+
+    private void convertAudioToImage(String inputAudioFilePath) {
         try {
             Process p = Runtime.getRuntime().exec("cmd /c cd /d \"D:\\temp\\arss\"" +
-                    " && arss -q D:\\temp\\temp.bmp D:\\temp\\temp.wav -s -r 44100 -min 55.000 -b 12 -p 100");
+                    " && arss -q " + inputAudioFilePath +
+                    " " + "D:\\temp\\temp.png" + " -b 12 --min-freq 55 -max 16000 --pps 100 -f 16");
             new Thread(() -> {
                 BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String line;
@@ -30,7 +45,7 @@ public class ImageToAudioConverter extends Task<File> {
             }).start();
             try {
                 p.waitFor();
-                file = new File("D:\\temp\temp.wav");
+                image = ImageIO.read(new File("D:\\temp\\temp.png"));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -40,10 +55,11 @@ public class ImageToAudioConverter extends Task<File> {
     }
 
     @Override
-    protected File call() throws Exception {
+    protected Image call() throws Exception {
         updateMessage("Converting audio...");
-        //updateProgress(1,1);
-        convertImageToAudio();
-        return file;
+        convertAudioToImage(inputAudioPath);
+        updateProgress(1,1);
+        updateMessage("Successful!");
+        return SwingFXUtils.toFXImage(image, null);
     }
 }
